@@ -1,0 +1,40 @@
+diff --git a/SEGA835Lib/Devices/Card/837-15396/AimeCardReader_837-15396.cs b/SEGA835Lib/Devices/Card/837-15396/AimeCardReader_837-15396.cs
+index 436d6d0..eb7baab 100644
+--- a/SEGA835Lib/Devices/Card/837-15396/AimeCardReader_837-15396.cs
++++ b/SEGA835Lib/Devices/Card/837-15396/AimeCardReader_837-15396.cs
+@@ -329,7 +329,7 @@ namespace Haruka.Arcade.SEGA835Lib.Devices.Card._837_15396 {
+             pollingThread = null;
+         }
+ 
+-        private DeviceStatus Poll() {
++        public DeviceStatus Poll() {
+             DeviceStatus ret = this.WriteAndRead(new ReqPacketPoll().ToFrame(), out SProtFrame resp);
+             SetLastError(ret, resp?.Status);
+             if (resp != null && resp.Payload != null) {
+@@ -693,4 +693,4 @@ namespace Haruka.Arcade.SEGA835Lib.Devices.Card._837_15396 {
+             }
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/SEGA835Lib/Serial/SerialComm.cs b/SEGA835Lib/Serial/SerialComm.cs
+index 849ba4a..18ba4ef 100644
+--- a/SEGA835Lib/Serial/SerialComm.cs
++++ b/SEGA835Lib/Serial/SerialComm.cs
+@@ -101,7 +101,7 @@ namespace Haruka.Arcade.SEGA835Lib.Serial {
+ #else
+             // Device namespace is necessary for COM10 and above to work
+             // https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#win32-device-namespaces
+-            string portPrefix = @"\\.\COM";
++            string portPrefix = "COM";
+ #endif
+             device = new SerialPort(portPrefix + Port, Baudrate, Parity, DataBits, StopBits) {
+                 DtrEnable = DTR,
+@@ -279,4 +279,4 @@ namespace Haruka.Arcade.SEGA835Lib.Serial {
+             device?.Close();
+         }
+     }
+-}
+\ No newline at end of file
++}
